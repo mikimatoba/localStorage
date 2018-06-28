@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Local storage test</title>
+    <style>
+        body {
+            font-family: Sans-serif;
+        }
+        a {
+            width: 100px;
+            padding: 10px;
+            background-color: #778899;
+            display: block;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: #FFF;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .goToNext {
+            width: 64px;
+            background-color: powderblue;
+            float: right;
+        }
+        table {
+            width: 100%;
+        }
+        dt {
+            float: left;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr class="jscCouponWrap">
+                <th>coupon01</th>
+                <td>
+                    <dl>
+                        <dt>[details]</dt><dd>free coffee</dd>
+                        <dt>[expire date]</dt><dd>2018,06,30</dd>
+                    </dl>
+                </td>
+                <td>
+                    <a class="jscSaveMe">Save Me</a>
+                </td>
+            </tr>
+            <tr class="jscCouponWrap">
+                <th>coupon02</th>
+                <td>
+                    <dl>
+                        <dt>[details]</dt><dd>free sake</dd>
+                        <dt>[expire date]</dt><dd>2018,06,30</dd>
+                    </dl>
+                </td>
+                <td>
+                    <a class="jscSaveMe">Save Me</a>
+                </td>
+            </tr>
+            <tr class="jscCouponWrap">
+                <th>coupon03</th>
+                <td>
+                    <dl>
+                        <dt>[details]</dt><dd>free chicken</dd>
+                        <dt>[expire date]</dt><dd>2018,06,30</dd>
+                    </dl>
+                </td>
+                <td>
+                    <a class="jscSaveMe">Save Me</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="index2.html" class="goToNext">NEXT ▷</a>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var CODE = CODE || {};
+
+    CODE.saveToLS = {
+        init: function () {
+            this.$trigger = $('.jscSaveMe');
+            this.bindEvent();
+        },
+        bindEvent: function () {
+            this.$trigger.on('click', function () {
+                var touchedCoupon = $(this).parents('.jscCouponWrap');
+                var contents = [],
+                    data = {};
+
+                for(var i=0; i < $(touchedCoupon).find('dt').length; i++) {
+                    var title = $(touchedCoupon).find('dt')[i],
+                        value = $(touchedCoupon).find('dd')[i];
+
+                    data[$(title).text()] = $(value).text();
+                    localStorage.setItem('contents', JSON.stringify(data));
+                }
+            });
+        }
+    };
+    $(function () {
+       CODE.saveToLS.init();
+    });
+</script>
+</html>

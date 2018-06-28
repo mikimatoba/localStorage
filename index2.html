@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Local storage test</title>
+    <style>
+        body {
+            font-family: Sans-serif;
+        }
+        a {
+            padding: 10px;
+            background-color: #000;
+            display: block;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: #FFF;
+            text-decoration: none;
+        }
+        .modalWrap {
+            width: 50%;
+            height: 50%;
+            background-color: #fff;
+            position: relative;
+            display: none;
+        }
+        .modalOverlay {
+            width: 100%;
+            height: 120%;;
+            position: fixed;
+            background-color: midnightblue;
+        }
+    </style>
+</head>
+<body>
+<a class="jscOpenModal">OPEN</a>
+<div class="modalWrap">
+    <dl>
+        <dt class="title"></dt><dd class="value"></dd>
+        <dt class="title"></dt><dd class="value"></dd>
+    </dl>
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var CODE = CODE || {};
+
+    CODE.displayModal = {
+        init: function () {
+            this.$modalTrigger = $('.jscOpenModal');
+            this.$modalOverlay = "<div class='jscModalOverlay modalOverlay'></div>";
+            this.bindEvent();
+
+            this.savedLSData = JSON.parse(localStorage.getItem("contents"));
+
+            if(this.savedLSData) {
+
+            }
+        },
+        bindEvent: function () {
+            var _self = this;
+            this.$modalTrigger.on('click', function () {
+                _self.displayModal();
+            });
+        },
+        displayModal: function () {
+            $('body').append(this.$modalOverlay);
+        }
+    };
+    $(function () {
+        CODE.displayModal.init();
+    });
+</script>
+</html>
